@@ -103,7 +103,20 @@ console.log(lambdaStudentThree.stomach);
     this.tank += gallons
   }
 
+  Car.prototype.drive = function(distance){
+    this.odometer += distance;
+    this.tank -= (distance/this.milesPerGallon)
+    if(this.tank === 0){
+      return `I ran out of fuel at ${this.odometer} miles!`
+    }
+
+  }
+
   const carOne = new Car('crosstrek', 34)
+carOne.fill(10);
+console.log(carOne)
+carOne.drive(10)
+console.table(carOne)
 
   
   
@@ -116,17 +129,38 @@ console.log(lambdaStudentThree.stomach);
           + Should return a string "Playing with x", x being the favorite toy.
   */
  function Baby(name, age, favoriteToy) {
-   
+   Person.call(this, name, age);
+   this.favoriteToy = favoriteToy;
   }
  
+  Baby.prototype = Object.create(Person.prototype);
+
+  Baby.prototype.play= function(){
+    return `Playing with ${this.favoriteToy}`;
+  }
+
+  const Indy = new Baby('Indy', 'Three', 'Disc')
+  
+  console.log(Indy)
+
+Indy.play()
+
   
   /* 
     TASK 4
     In your own words explain the four principles for the "this" keyword below:
-    1. 
-    2. 
-    3. 
-    4. 
+
+    1. Window Binding: if no rules apply, this. defaults to the global window.  This ain't good! It means you don't have it correctly assigned/bound.
+
+    2. Implicit binding: binds to objects with methods. When the function is invoked, look to the left of the dot.  Most common use 80% of the time it works all the time!  see first two tasks.
+
+    3. Explicit binding;  
+    call- immidiately invokes function and you pass the args 1 to 1 .  see task three.
+    apply- will immidatly invoke /.apply. you pass the args as an array.
+    bind- pass an arg 1 by 1 but it's not immidatly invoked, creates a new function to invoke later.
+
+    4. new binding: when a function is invoked, .this points to the newly created function. 
+    still working to understand this one!
   */
   
   
